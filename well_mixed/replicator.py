@@ -17,8 +17,8 @@ C = [0.05, 0.3]    # C denotes the set of all weighting factors to compare again
 eps = 0.05
 
 # parameters for game matrix
-a = 0.3
-b = 0.7
+a = 0.4
+b = 0.6
 
 # setting the legend for the output plots
 legend_text = []
@@ -35,10 +35,12 @@ cnt = 0
 
 # looping over different runs for different c values
 for c in C:
+    print 'running c =', c
+
     # setting proportion of B agents
     p_b = eps
 
-    # defining lists to keep track of proportion of B agents (pb_list), and change in that proportion, in each time step
+    # defining lists to keep track of proportion of B agents, and change in that proportion, in each time step
     pb_list = list()
     dp_list = list()
 
@@ -52,8 +54,8 @@ for c in C:
         dp_list.append(dp)
 
     # plotting proportion and change in proportion for B agents using stored lists
-    ax1.plot([i/dt for i in range(len(pb_list))], pb_list, color=colors[cnt], linewidth=2, linestyle='-')
-    ax2.plot(pb_list, dp_list, color=colors[cnt], linewidth=2, linestyle='-')
+    ax1.plot([i/dt for i in range(len(pb_list))][::100], pb_list[::100], color=colors[cnt], linewidth=2, linestyle='-')
+    ax2.plot(pb_list[::100], dp_list[::100], color=colors[cnt], linewidth=2, linestyle='--')
     cnt += 1
 
 # settings for plots
