@@ -18,8 +18,8 @@ plt.close('all')
 # im_name = 'cm_b14_w075.png'
 
 settings_list = ['_coord_a1.0b1.15mu0.05weight1.0conf0.0grid_50_50_switch2500_avg.txt',
-				 '_coord_a1.0b1.15mu0.05weight0.75conf0.0grid_50_50_switch2500_avg.txt',
-				 '_coord_a1.0b1.15mu0.05weight0.5conf0.0grid_50_50_switch2500_avg.txt']
+                 '_coord_a1.0b1.15mu0.05weight0.75conf0.0grid_50_50_switch2500_avg.txt',
+                 '_coord_a1.0b1.15mu0.05weight0.5conf0.0grid_50_50_switch2500_avg.txt']
 im_name = 'gm_b115_c0.png'
 
 # tests
@@ -46,45 +46,45 @@ headers = ['Norm A', 'Norm B']
 count = 0
 
 for settings in settings_list:
-	plt.subplot(len(settings_list), 1, count+1)
-	for i in range(len(prefixes)):
-		f_name = file_path+prefixes[i]+settings
-		f = open(f_name, 'rb')
-		reader = csv.reader(f)
-		row_num = 0
-		val_num = 0
-		# headers = []
-		for row in reader:
-			if row_num == 0:
-				row_num += 1
-				values = []
-				continue
-			for j in range(len(row)):
-				if val_num < len(row):
-					values.append([float(row[j])])
-				else:
-					values[j].append(float(row[j]))
-				val_num += 1
-		x_axis = range(0, len(values[0]))
+    plt.subplot(len(settings_list), 1, count+1)
+    for i in range(len(prefixes)):
+        f_name = file_path+prefixes[i]+settings
+        f = open(f_name, 'rb')
+        reader = csv.reader(f)
+        row_num = 0
+        val_num = 0
+        # headers = []
+        for row in reader:
+            if row_num == 0:
+                row_num += 1
+                values = []
+                continue
+            for j in range(len(row)):
+                if val_num < len(row):
+                    values.append([float(row[j])])
+                else:
+                    values[j].append(float(row[j]))
+                val_num += 1
+        x_axis = range(0, len(values[0]))
 
-		for j in range(len(markers)):
-			for k in range(len(colors)):
-				if j*len(colors)+k < len(values):
-					plt.plot(x_axis, values[j*len(colors)+k], linestyle='-', color=colors[k], linewidth=3.0)  # label=headers[j*len(colors)+k]
-		plt.ylim(0., 1., 0.1)
-		plt.grid('on')
-		if count == len(settings_list)/2:
-			plt.ylabel('Proportions').set_size(16)
-		if count == 0:
-			plt.legend(headers, loc='upper center', bbox_to_anchor=(0.5, 1.35), frameon=False, ncol=5)   # fancybox=False, shadow=False, )
-		f.close()
+        for j in range(len(markers)):
+            for k in range(len(colors)):
+                if j*len(colors)+k < len(values):
+                    plt.plot(x_axis, values[j*len(colors)+k], linestyle='-', color=colors[k], linewidth=3.0)  # label=headers[j*len(colors)+k]
+        plt.ylim(0., 1., 0.1)
+        plt.grid('on')
+        if count == len(settings_list)/2:
+            plt.ylabel('Proportions').set_size(16)
+        if count == 0:
+            plt.legend(headers, loc='upper center', bbox_to_anchor=(0.5, 1.35), frameon=False, ncol=5)   # fancybox=False, shadow=False, )
+        f.close()
 
-	count += 1
+    count += 1
 
 plt.xlabel('Generations').set_size(16)
 
 if sys.argv[1] == 'show':
-	plt.show()
+    plt.show()
 elif sys.argv[1] == 'save':
-	im_folder = '/Users/soham/Dropbox-personal/Dropbox/Social_Norms/Inertia&SocialLearning/Paper_Draft/images/'
-	plt.savefig(str(im_folder+im_name), bbox_inches='tight', pad_inches=0.1)
+    im_folder = '/Users/soham/Dropbox-personal/Dropbox/Social_Norms/Inertia&SocialLearning/Paper_Draft/images/'
+    plt.savefig(str(im_folder+im_name), bbox_inches='tight', pad_inches=0.1)

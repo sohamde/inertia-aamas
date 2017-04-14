@@ -13,9 +13,12 @@ import os
 
 # set path to folder where output files will be saved; cluster = 1 if running on DeepThought2 cluster, 0 otherwise
 if os.path.isdir("/lustre/sohamde/InertiaNormChange"):
-	cluster = 1
+    cluster = 1
 else:
-	cluster = 0
+    cluster = 0
+
+# if not os.path.exists(directory):
+#     os.makedirs(directory)
 
 # game and punishment phase actions
 game_actions = ['A', 'B']
@@ -38,37 +41,37 @@ network_parameters_str = str(sys.argv[4])
 network_parameters_list = network_parameters_str.split(",")
 network_model = []
 if network_type == 'grid':
-	network_model = [int(i) for i in network_parameters_list]
+    network_model = [int(i) for i in network_parameters_list]
 elif network_type == 'watts':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(int(network_parameters_list[1]))
-	network_model.append(float(network_parameters_list[2]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(int(network_parameters_list[1]))
+    network_model.append(float(network_parameters_list[2]))
 elif network_type == 'clusters':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(int(network_parameters_list[1]))
-	network_model.append(float(network_parameters_list[2]))
-	network_model.append(float(network_parameters_list[3]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(int(network_parameters_list[1]))
+    network_model.append(float(network_parameters_list[2]))
+    network_model.append(float(network_parameters_list[3]))
 elif network_type == 'random':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(float(network_parameters_list[1]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(float(network_parameters_list[1]))
 elif network_type == 'caveman':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(int(network_parameters_list[1]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(int(network_parameters_list[1]))
 elif network_type == 'barabasi':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(int(network_parameters_list[1]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(int(network_parameters_list[1]))
 elif network_type == 'star':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
 elif network_type == 'regular':
-	network_model = list()
-	network_model.append(int(network_parameters_list[0]))
-	network_model.append(int(network_parameters_list[1]))
+    network_model = list()
+    network_model.append(int(network_parameters_list[0]))
+    network_model.append(int(network_parameters_list[1]))
 
 # basic game settings
 run = int(sys.argv[5])      # run number: useful when running the same configuration multiple times
@@ -78,11 +81,11 @@ mu_rate = 0.05    # probability of an agent mutating to a random strategy
 
 # number of generations, and generation at which to switch the game matrix
 if cluster == 1:
-	num_generations = 6000
-	time_switch = 2500  # make equal to num_generations if no switch is desired
+    num_generations = 6000
+    time_switch = 2500  # make equal to num_generations if no switch is desired
 else:
-	num_generations = 2000
-	time_switch = 1000
+    num_generations = 2000
+    time_switch = 1000
 
 # lists and dicts for keeping tracking of the games
 nodes_with_agents = []      # nodes with agents on them
@@ -94,24 +97,24 @@ payoff_list = list()        # list of payoffs received by the agents
 # file name should also include the run number, which can be passed as a separate command line argument
 run_ID = "coord_a" + str(a) + "b" + str(b) + "mu" + str(mu_rate) + "weight" + str(w) + "conf" + str(conf_fermi_prob)
 if network_type == "grid":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "watts":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1]) + "_" + str(network_model[2])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1]) + "_" + str(network_model[2])
 elif network_type == "clusters":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1]) + "_" + str(network_model[2])
-	run_ID += "_" + str(network_model[3])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1]) + "_" + str(network_model[2])
+    run_ID += "_" + str(network_model[3])
 elif network_type == "random":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "caveman":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "barabasi":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "star":
-	run_ID += network_type + "_" + str(network_model[0])
+    run_ID += network_type + "_" + str(network_model[0])
 elif network_type == "regular":
-	run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
+    run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 if time_switch < num_generations:
-	run_ID += "_switch" + str(time_switch)
+    run_ID += "_switch" + str(time_switch)
 run_ID += "_run" + str(run)
 
 # initializing stats class
