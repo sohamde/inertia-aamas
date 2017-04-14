@@ -2,14 +2,9 @@
 Agent class for specifying the nodes of the network
 
 Agent types:
-
 Game Phase
 A: plays action A
 B: plays action B
-
-@author: Soham De
-@email: sohamde@cs.umd.edu
-@date: Nov 5, 2014
 
 """
 

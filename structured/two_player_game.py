@@ -1,9 +1,6 @@
 """
 Runs a two player game between two agents
 
-@author: Soham De
-@email: sohamde@cs.umd.edu
-@date: Nov 22, 2014
 """
 
 

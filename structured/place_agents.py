@@ -5,9 +5,6 @@ used to place the agents on the nodes of the network.
 2. Randomly assigned agents at each node
 3. Seed agents placed at some nodes randomly. The default agent is placed otherwise.
 4. Seed agents placed at some high degree nodes. The default agent is placed otherwise.
-@author: Soham De
-@email: sohamde@cs.umd.edu
-@date: Nov 17, 2014
 """
 
 import network_agent
@@ -51,8 +48,7 @@ def place_random_agent(game_phase_actions):
 
 
 def place_random_seeds(std_game_action, seed_game_action, prob):
-    """ Places agents of type std_game_action, with seed agents placed with probability prob of type seed_game_action
-    :param prob: probability with which the default agent is replaced by the seed agent """
+    """ Places agents of type std_game_action, with seed agents placed with probability prob of type seed_game_action"""
 
     for node_i in g.network.nodes():
         seed_prob = rnd.random()

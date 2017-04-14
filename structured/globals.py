@@ -1,8 +1,5 @@
 """
 Contains all the global variables in the games on network framework. File needs to be imported in other functions.
-@author: Soham De
-@email: sohamde@cs.umd.edu
-@date: Mar 23, 2015
 """
 
 import networkx as nx
@@ -12,13 +9,14 @@ import os
 
 
 # set path to folder where output files will be saved; cluster = 1 if running on DeepThought2 cluster, 0 otherwise
-if os.path.isdir("/lustre/sohamde/InertiaNormChange"):
+if os.path.isdir("/lustre/sohamde/Inertia-AAMAS"):
     cluster = 1
+    if not os.path.exists("/lustre/sohamde/Inertia-AAMAS/stats"):
+        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats")
 else:
     cluster = 0
-
-# if not os.path.exists(directory):
-#     os.makedirs(directory)
+    if not os.path.exists("stats"):
+        os.makedirs("stats")
 
 # game and punishment phase actions
 game_actions = ['A', 'B']
@@ -27,12 +25,18 @@ game_actions = ['A', 'B']
 a = float(sys.argv[1])
 b = float(sys.argv[2])
 
+# need for coordination
+c = float(sys.argv[6])
+
 # two player game matrix
-c = (a+b)/2
-d = c - (b-a)
-w = float(sys.argv[6])
-game_matrix = [[((1-w)*d + w*a, (1-w)*d + w*a), ((1-w)*d, (1-w)*c)], [((1-w)*c, (1-w)*d), ((1-w)*c + w*b, (1-w)*c + w*b)]]
-switched_game_matrix = [[((1-w)*c + w*b, (1-w)*c + w*b), ((1-w)*c, (1-w)*d)], [((1-w)*d, (1-w)*c), ((1-w)*d + w*a, (1-w)*d + w*a)]]
+game_matrix = [[(a, a), ((1-c)*a, (1-c)*b)], [((1-c)*b, (1-c)*a), (b, b)]]
+switched_game_matrix = [[(b, b), ((1-c)*b, (1-c)*a)], [((1-c)*a, (1-c)*b), (a, a)]]
+
+# c = (a+b)/2
+# d = c - (b-a)
+# w = float(sys.argv[6])
+# game_matrix = [[((1-w)*d + w*a, (1-w)*d + w*a), ((1-w)*d, (1-w)*c)], [((1-w)*c, (1-w)*d), ((1-w)*c + w*b, (1-w)*c + w*b)]]
+# switched_game_matrix = [[((1-w)*c + w*b, (1-w)*c + w*b), ((1-w)*c, (1-w)*d)], [((1-w)*d, (1-w)*c), ((1-w)*d + w*a, (1-w)*d + w*a)]]
 
 # initializing the network structure
 network = nx.Graph()
@@ -76,7 +80,6 @@ elif network_type == 'regular':
 # basic game settings
 run = int(sys.argv[5])      # run number: useful when running the same configuration multiple times
 games_per_round = 0         # number of games each agent plays in a round; set to 0 for pairing all neighbors
-conf_fermi_prob = float(sys.argv[7])    # conformist vs fermi update rule
 mu_rate = 0.05    # probability of an agent mutating to a random strategy
 
 # number of generations, and generation at which to switch the game matrix
@@ -91,11 +94,11 @@ else:
 nodes_with_agents = []      # nodes with agents on them
 empty_nodes = []            # nodes without agents on them
 neighbors_with_agents = {}  # dictionary with nodes as keys and agent neighbors as values
-normA_percentage = 0   # percentage of agents playing norm A
+normA_percentage = 0        # percentage of agents playing norm A
 payoff_list = list()        # list of payoffs received by the agents
 
 # file name should also include the run number, which can be passed as a separate command line argument
-run_ID = "coord_a" + str(a) + "b" + str(b) + "mu" + str(mu_rate) + "weight" + str(w) + "conf" + str(conf_fermi_prob)
+run_ID = "coord_a" + str(a) + "b" + str(b) + "mu" + str(mu_rate) + "c" + str(c)
 if network_type == "grid":
     run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "watts":

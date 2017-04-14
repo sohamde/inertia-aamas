@@ -1,7 +1,5 @@
 """
 Keeps track of population statistics
-Author: Soham De
-Email: sohamde at cs umd edu
 """
 
 import globals as g
@@ -16,7 +14,7 @@ class Stats:
         self.game_actions = game_actions
 
         if g.cluster == 1:
-            self.game_actions_file = open("/lustre/sohamde/InertiaNormChange/stats/allProps_"+str(run_ID)+".txt", 'wb')
+            self.game_actions_file = open("/lustre/sohamde/Inertia-AAMAS/stats/allProps_"+str(run_ID)+".txt", 'wb')
         elif g.cluster == 0:
             self.game_actions_file = open("./stats/allProps_"+str(run_ID)+".txt", 'wb')
         for t in game_actions:
@@ -24,12 +22,6 @@ class Stats:
                 self.game_actions_file.write(t+"\n")
             else:
                 self.game_actions_file.write(t+",")
-
-        # if g.cluster == 1:
-        # 	self.stats_file = open("/lustre/sohamde/NetworkGames/stats/stats_"+str(run_ID)+".txt", 'wb')
-        # elif g.cluster == 0:
-        # 	self.stats_file = open("./stats/stats_"+str(run_ID)+".txt", 'wb')
-        # self.stats_file.write("total_population_payoff,cooperation_percentage\n")
 
     def step(self):
         """ Records everything for this time step. """
@@ -42,8 +34,6 @@ class Stats:
                 self.game_actions_file.write(str(game_action_proportions[t])+"\n")
             else:
                 self.game_actions_file.write(str(game_action_proportions[t])+",")
-
-        # self.stats_file.write(str(sum(g.payoff_list))+","+str(g.normA_percentage)+"\n")
 
     def count_population_proportions(self):
 
@@ -66,4 +56,3 @@ class Stats:
     def close_files(self):
 
         self.game_actions_file.close()
-        # self.stats_file.close()

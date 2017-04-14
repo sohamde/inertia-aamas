@@ -22,18 +22,22 @@ if __name__ == "__main__":
         if time_gen >= g.time_switch:
             g.game_matrix = g.switched_game_matrix
 
+        # game phase
         gp_start = time.time()
         gp.game_phase()
         gp_time = time.time() - gp_start
 
+        # reproduction phase
         rp_start = time.time()
-        rp.conformist_vs_fermi()
+        rp.fermi()
         rp_time = time.time() - rp_start
 
+        # reset agents
         end_start = time.time()
         for agent_on_node in g.nodes_with_agents:
             g.network.node[agent_on_node]['agent'].reset()
 
+        # save statistics
         g.stats.step()
         g.payoff_list = list()
         end_time = time.time() - end_start
@@ -41,7 +45,6 @@ if __name__ == "__main__":
         time_gen += 1
 
         if time_gen % 50 == 0:
-            print "time: %d, gp: %f, rp: %f, end: %f" % \
-                    (time_gen, gp_time, rp_time, end_time)
+            print "time: %d" % time_gen
 
     g.stats.close_files()

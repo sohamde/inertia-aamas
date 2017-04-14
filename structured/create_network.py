@@ -3,15 +3,6 @@ Methods to create different network structures
 
 Each node is an agent class object
 Each edge can be associated with a class object containing history of interaction
-
-Current methods:
-2D grid of size MxN
-Watts-Strogatz network model with average degree D
-
-@author: Soham De
-@email: sohamde@cs.umd.edu
-@date: Nov 5, 2014
-
 """
 
 import networkx as nx

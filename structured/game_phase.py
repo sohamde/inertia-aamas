@@ -1,3 +1,5 @@
+""" function to pair agents to play games """
+
 import two_player_game as tpg
 import globals as g
 import random as rnd
@@ -32,7 +34,7 @@ def game_phase():
 
                     # find neighbors who have played less than or equal to num_games
                     candidate_neighbors = [neighbor for neighbor in agent_neighbors
-                                        if len(g.network.node[neighbor]['agent'].games_played) <= num_games]
+                                           if len(g.network.node[neighbor]['agent'].games_played) <= num_games]
 
                     # selecting neighbor to play against
                     if len(candidate_neighbors) > 0:
@@ -42,7 +44,7 @@ def game_phase():
 
                     # create and run a new game
                     game = tpg.TwoPlayerGame(g.network.node[agent_node]['agent'], g.network.node[opponent]['agent'],
-                                    g.game_matrix, g.game_actions, agent_node, opponent)
+                                             g.game_matrix, g.game_actions, agent_node, opponent)
                     game.run()
 
                     # last move for row player - agent
@@ -84,7 +86,7 @@ def game_phase():
 
                     # create and run a new game
                     game = tpg.TwoPlayerGame(g.network.node[agent_node]['agent'], g.network.node[opponent]['agent'],
-                                        g.game_matrix, g.game_actions, agent_node, opponent)
+                                             g.game_matrix, g.game_actions, agent_node, opponent)
                     game.run()
 
                     # last move for row player - agent
