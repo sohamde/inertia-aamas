@@ -1,3 +1,7 @@
+"""
+main file for running experiments to study the evolution of exploration rates
+"""
+
 import create_network as cn
 import place_agents as pa
 import globals as g

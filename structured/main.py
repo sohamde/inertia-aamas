@@ -1,3 +1,7 @@
+"""
+main file for running norm change experiments
+"""
+
 import create_network as cn
 import place_agents as pa
 import globals as g
