@@ -8,18 +8,20 @@ import sys
 import os
 
 # set path to folder where output files will be saved; cluster = 1 if running on DeepThought2 cluster, 0 otherwise
-if os.path.isdir("/lustre/sohamde/Inertia-AAMAS"):
+cluster_dir = "/lustre/sohamde/Inertia-AAMAS"
+if os.path.isdir(cluster_dir):
     cluster = 1
-    if not os.path.exists("/lustre/sohamde/Inertia-AAMAS/stats"):
-        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats")
-        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats/norm_change")
-        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats/exploration")
+    folder_path = cluster_dir+"/stats"
 else:
     cluster = 0
-    if not os.path.exists("stats"):
-        os.makedirs("stats")
-        os.makedirs("stats/norm_change")
-        os.makedirs("stats/exploration")
+    folder_path = "./stats"
+
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+if not os.path.exists(folder_path + "/norm_change"):
+    os.makedirs(folder_path + "/norm_change")
+if not os.path.exists(folder_path + "/exploration"):
+    os.makedirs(folder_path + "/exploration")
 
 # game and punishment phase actions
 game_actions = ['A', 'B']

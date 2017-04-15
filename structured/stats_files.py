@@ -50,14 +50,15 @@ class Stats:
                 self.game_actions_file.write(str(game_action_proportions[t])+",")
 
         # counting number of occurrence of each type of mutation rate and writing to file
-        count_mu = dict()
-        for mu in g.mutation_rate_types:
-            count_mu[mu] = g.mutation_rates.values().count(mu)
-        for t in g.mutation_rate_types:
-            if t == g.mutation_rate_types[-1]:
-                self.mu_rates_file.write(str(float(count_mu[t]) / len(g.nodes_with_agents)) + "\n")
-            else:
-                self.mu_rates_file.write(str(float(count_mu[t]) / len(g.nodes_with_agents)) + ",")
+        if sys.argv[0] == 'main_explore.py':
+            count_mu = dict()
+            for mu in g.mutation_rate_types:
+                count_mu[mu] = g.mutation_rates.values().count(mu)
+            for t in g.mutation_rate_types:
+                if t == g.mutation_rate_types[-1]:
+                    self.mu_rates_file.write(str(float(count_mu[t]) / len(g.nodes_with_agents)) + "\n")
+                else:
+                    self.mu_rates_file.write(str(float(count_mu[t]) / len(g.nodes_with_agents)) + ",")
 
     def count_population_proportions(self):
 
