@@ -7,16 +7,19 @@ import stats_files as st
 import sys
 import os
 
-
 # set path to folder where output files will be saved; cluster = 1 if running on DeepThought2 cluster, 0 otherwise
 if os.path.isdir("/lustre/sohamde/Inertia-AAMAS"):
     cluster = 1
     if not os.path.exists("/lustre/sohamde/Inertia-AAMAS/stats"):
         os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats")
+        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats/norm_change")
+        os.makedirs("/lustre/sohamde/Inertia-AAMAS/src/stats/exploration")
 else:
     cluster = 0
     if not os.path.exists("stats"):
         os.makedirs("stats")
+        os.makedirs("stats/norm_change")
+        os.makedirs("stats/exploration")
 
 # game and punishment phase actions
 game_actions = ['A', 'B']
@@ -27,16 +30,13 @@ b = float(sys.argv[2])
 
 # need for coordination
 c = float(sys.argv[6])
+if c < 0 or c > 1:
+    sys.exit("the condition 0 <= c <= 1 is violated")
 
 # two player game matrix
-game_matrix = [[(a, a), ((1-c)*a, (1-c)*b)], [((1-c)*b, (1-c)*a), (b, b)]]
-switched_game_matrix = [[(b, b), ((1-c)*b, (1-c)*a)], [((1-c)*a, (1-c)*b), (a, a)]]
-
-# c = (a+b)/2
-# d = c - (b-a)
-# w = float(sys.argv[6])
-# game_matrix = [[((1-w)*d + w*a, (1-w)*d + w*a), ((1-w)*d, (1-w)*c)], [((1-w)*c, (1-w)*d), ((1-w)*c + w*b, (1-w)*c + w*b)]]
-# switched_game_matrix = [[((1-w)*c + w*b, (1-w)*c + w*b), ((1-w)*c, (1-w)*d)], [((1-w)*d, (1-w)*c), ((1-w)*d + w*a, (1-w)*d + w*a)]]
+game_matrix_1 = [[(a, a), ((1-c)*a, (1-c)*b)], [((1-c)*b, (1-c)*a), (b, b)]]
+game_matrix_2 = [[(b, b), ((1-c)*b, (1-c)*a)], [((1-c)*a, (1-c)*b), (a, a)]]
+game_matrix = game_matrix_1
 
 # initializing the network structure
 network = nx.Graph()
@@ -81,6 +81,10 @@ elif network_type == 'regular':
 run = int(sys.argv[5])      # run number: useful when running the same configuration multiple times
 games_per_round = 0         # number of games each agent plays in a round; set to 0 for pairing all neighbors
 mu_rate = 0.05    # probability of an agent mutating to a random strategy
+if sys.argv[0] == 'main_explore.py':
+    mutation_rate_types = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
+    mutation_rates = {}  # dictionary with nodes as keys and agent neighbors as values
+    base_mu_rate = mu_rate
 
 # number of generations, and generation at which to switch the game matrix
 if cluster == 1:
@@ -89,6 +93,8 @@ if cluster == 1:
 else:
     num_generations = 2000
     time_switch = 1000
+if sys.argv[0] == 'main_explore.py':
+    time_switch = 75
 
 # lists and dicts for keeping tracking of the games
 nodes_with_agents = []      # nodes with agents on them
@@ -97,8 +103,8 @@ neighbors_with_agents = {}  # dictionary with nodes as keys and agent neighbors 
 normA_percentage = 0        # percentage of agents playing norm A
 payoff_list = list()        # list of payoffs received by the agents
 
-# file name should also include the run number, which can be passed as a separate command line argument
-run_ID = "coord_a" + str(a) + "b" + str(b) + "mu" + str(mu_rate) + "c" + str(c)
+# file name also includes the run number, which is passed as a separate command line argument
+run_ID = "a" + str(a) + "b" + str(b) + "mu" + str(mu_rate) + "c" + str(c)
 if network_type == "grid":
     run_ID += network_type + "_" + str(network_model[0]) + "_" + str(network_model[1])
 elif network_type == "watts":

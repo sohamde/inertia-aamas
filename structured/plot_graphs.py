@@ -1,18 +1,22 @@
+"""
+plot graphs based on the files in settings_list
+"""
+
 import matplotlib.pyplot as plt
 import csv
 
 plt.close('all')
 
 # list of all files to plot
-settings_list = ["_coord_a0.4b0.6mu0.05c1.0grid_10_10_switch1000_run0.txt",
-                 "_coord_a0.4b0.6mu0.05c0.75grid_10_10_switch1000_run0.txt",
-                 "_coord_a0.4b0.6mu0.05c0.5grid_10_10_switch1000_run0.txt"]
+settings_list = ["_a0.4b0.6mu0.05c1.0grid_10_10_switch1000_run0.txt",
+                 "_a0.4b0.6mu0.05c0.75grid_10_10_switch1000_run0.txt",
+                 "_a0.4b0.6mu0.05c0.5grid_10_10_switch1000_run0.txt"]
 file_path = 'stats/'
 
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', '0.3']
 markers = ['o', 's', '*', 'v', '^', '+', 'x', '>', '<']
-prefixes = ['allProps']
-titles = ['Strategy Proportions']
+prefixes = ['actions', 'mu']
+titles = ['Action Proportions', 'Exploration Rates']
 headers = ['Norm A', 'Norm B']
 
 count = 0

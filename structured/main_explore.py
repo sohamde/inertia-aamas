@@ -13,13 +13,17 @@ if __name__ == "__main__":
     # creating network and updating nodes_with_agents and empty_nodes
     cn.create_network_helper(g.network_type, g.network_model)
     pa.place_random_agent(g.game_actions)
+    for node_i in g.network.nodes():
+        g.mutation_rates[node_i] = rnd.choice(g.mutation_rate_types)
     g.stats.step()
 
     # looping over generations
     while time_gen < g.num_generations:
 
         # switching game matrix
-        if time_gen >= g.time_switch:
+        if (time_gen/g.time_switch) % 2 == 0:
+            g.game_matrix = g.game_matrix_1
+        else:
             g.game_matrix = g.game_matrix_2
 
         # game phase
@@ -29,7 +33,7 @@ if __name__ == "__main__":
 
         # reproduction phase
         rp_start = time.time()
-        rp.fermi()
+        rp.fermi_explore()
         rp_time = time.time() - rp_start
 
         # reset agents
