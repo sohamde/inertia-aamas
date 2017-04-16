@@ -37,5 +37,37 @@ python main.py/main_explore.py {a} {b} {network_type} {network_params} {run_no} 
 
 `c` denotes the need for coordination in the game matrix.
 
+The rest of the settings can be set in `globals.py`. The specific settings required for `main_explore.py`, such as the list of exploration rates, are also set in `globals.py`.
 
+An example run of the norm change experiment would be:
 
+```
+python main.py 0.4 0.6 grid 10,10 0 1.0
+```
+
+Here `a = 0.4`, `b = 0.6`, with network type `grid` with 10 rows and 10 columns, run number 0 and `c = 1.0`.
+
+---
+
+Each run of `main.py` produces one output file `actions_*` under the folder `stats/norm_change/`. Each run of `main_explore.py` produces two output files `actions_*` and `mu_*` under the folder `stats/exploration/`.
+
+`actions_*` stores the proportions of agents playing the two norms at each iteration.
+
+`mu_*` stores the proportion of agents with each exploration rate at each iteration.
+
+Typically, each particular setting will be run multiple times (say for run numbers from 1 to 100), and then all these runs would be averaged together using a separate script. In our paper, we averaged a 100 runs together.
+
+---
+
+For plots, run `python plot_graphs.py`. The specific run to be plotted can be set inside the file.
+
+The functions of the other files that `main.py/main_explore.py` uses while running a simulation:
+
+* create_network.py: defines functions for using different network types.
+* game_phase.py: defines a method that controls the game phase of the evolutionary model.
+* globals.py: initializes global variables for the simulation run. Can be used to set values such as the total iterations to run, the list of exploration rates to use, etc.
+* network_agent.py: defines the agent type class.
+* place_agents.py: defines methods that determine the type of agents that are placed on the nodes of the network.
+* reproduction.py: defines the reproduction dynamic of the evolutionary model.
+* stats_files.py: aggregates and saves the different statistics of each iteration in the output files.
+* two_player_game.py: defines a class which implements a two player game between two agents on the network.
