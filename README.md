@@ -21,4 +21,21 @@ Both these files can be simply run as `python replicator.py` or `python mutator_
 
 ---
 
-More information to be updated soon.
+Under the folder `structured`, there are two main files `main.py` and `main_explore.py`. `main.py` runs the norm change experiments with one structural shock [Figure 6 in the paper]. `main_explore.py` runs the experiments studying the evolution of exploration rates [Figure 8 in the paper]. Both files can be run as follows:
+
+```
+python main.py/main_explore.py {a} {b} {network_type} {network_params} {run_no} {c}
+```
+
+`a` and `b` denote the payoffs of the game matrix used.
+
+`network_type` denotes the type of network to be used. `globals.py` contains the various types of networks supported. We used a `grid` network for our experiments.
+
+`network_params` denotes the parameters of the network type. For a `grid` network, it should contain the rows and columns of the grid, separated by a comma, without spaces. For example, for a `grid` network of 20 rows and 30 columns, we would denote `network_params` as `20,30`.
+
+`run_no` denotes a unique identifier for that particular run.
+
+`c` denotes the need for coordination in the game matrix.
+
+
+
