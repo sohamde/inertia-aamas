@@ -61,7 +61,7 @@ Typically, each particular setting will be run multiple times (say for run numbe
 
 For plots, run `python plot_graphs.py`. The specific run to be plotted can be set inside the file.
 
-The functions of the other files that `main.py/main_explore.py` uses while running a simulation:
+The functions of the other files that `main.py` or `main_explore.py` uses while running a simulation:
 
 * create_network.py: defines functions for using different network types.
 * game_phase.py: defines a method that controls the game phase of the evolutionary model.
