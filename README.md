@@ -44,10 +44,10 @@ The rest of the settings can be set in `globals.py`. The specific settings requi
 An example run of the norm change experiment would be:
 
 ```
-python main.py 0.4 0.6 grid 30,20 0 1.0
+python main.py 0.4 0.6 grid 50,50 0 1.0
 ```
 
-Here `a = 0.4`, `b = 0.6`, with network type `grid` with 30 rows and 20 columns, run number 0 and `c = 1.0`.
+Here `a = 0.4`, `b = 0.6`, with network type `grid` with 50 rows and 50 columns, run number 0 and `c = 1.0`.
 
 ---
 
