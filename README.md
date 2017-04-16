@@ -14,8 +14,8 @@ There are two different settings in the paper:
 ---
 
 Under the folder `well_mixed`, there are two files:
-1. `replicator.py`: Norm change on an infinite well-mixed population using the replicator dynamic [Figure 4 and 5 in paper].
-2. `mutator_replicator.py`: Norm change on an infinite well-mixed population using the replicator-mutator dynamic [Figure 7 in paper].
+1. `replicator.py`: Norm change on an infinite well-mixed population using the replicator dynamic [Figure 4 and 5 in the paper].
+2. `mutator_replicator.py`: Norm change on an infinite well-mixed population using the replicator-mutator dynamic [Figure 7 in the paper].
 
 Both these files can be simply run as `python replicator.py` or `python mutator_replicator.py`, with specific settings set inside each file.
 
