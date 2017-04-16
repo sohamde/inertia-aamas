@@ -24,10 +24,10 @@ Both these files can be simply run as `python replicator.py` or `python mutator_
 Under the folder `structured`, there are two main files `main.py` and `main_explore.py`. `main.py` runs the norm change experiments with one structural shock [Figure 6 in the paper]. `main_explore.py` runs the experiments studying the evolution of exploration rates [Figure 8 in the paper]. Both files can be run as follows:
 
 ```
-python <main file name> {a} {b} {network_type} {network_params} {run_no} {c}
+python <filename> {a} {b} {network_type} {network_params} {run_no} {c}
 ```
 
-where `<main file name>` can be `main.py` or `main_explore.py`.
+where `<filename>` can be `main.py` or `main_explore.py`.
 
 `a` and `b` denote the payoffs of the game matrix used.
 
