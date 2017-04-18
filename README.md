@@ -1,7 +1,7 @@
 # Understanding Norm Change: An Evolutionary Game-Theoretic Approach
 by Soham De, Dana S Nau and Michele J Gelfand (University of Maryland)
 
-Source code in Python for running simulations of the model presented in the following paper: [link](http://www.gelfand.umd.edu/papers/De%20Nau%20Gelfand%20Norm%20Change%20AAMAS.pdf). The paper appears in the Proceedings of the 2017 International Conference on Autonomous Agents & Multiagent Systems (AAMAS), and an extended version will be available soon on arXiv.
+Source code in Python for running simulations of the model presented in the following paper: [link](http://www.gelfand.umd.edu/papers/De%20Nau%20Gelfand%20Norm%20Change%20AAMAS.pdf). The paper appears in the Proceedings of the 2017 International Conference on Autonomous Agents & Multiagent Systems (AAMAS), and an extended version is available on [arXiv](https://arxiv.org/pdf/1704.04720.pdf).
 
 This README goes through the functionalities of each file in the source code. The code has been tested with Python version 2.7.8.
 
